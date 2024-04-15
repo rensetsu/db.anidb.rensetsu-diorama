@@ -84,8 +84,12 @@ def do_loop() -> list[MediaInfo]:
     :return: List of MediaInfo objects
     :rtype: list[MediaInfo]
     """
-    with open("anidb.json", 'r') as f:
-        old_info = json.load(f)
+    try:
+        with open("anidb.json", 'r') as f:
+            old_info = json.load(f)
+    except FileNotFoundError:
+        old_info = []
+        loi = len(old_info)
     new_info = []
     with alive_bar(len(os.listdir("Anime_HTTP"))) as bar:
         for file in os.listdir("Anime_HTTP"):
@@ -96,10 +100,11 @@ def do_loop() -> list[MediaInfo]:
             data_uuid = None
             # get AniDB ID from Anime_HTTP/AnimeDoc_{id}.xml
             media_id = int(re.search(r"AnimeDoc_(\d+).xml", file).group(1))
-            for info in old_info:
-                if info['mappings']['anidb'] == media_id:
-                    data_uuid = info['uuid']
-                    break
+            if loi > 0:
+                for info in old_info:
+                    if info['mappings']['anidb'] == media_id:
+                        data_uuid = info['uuid']
+                        break
             new_info.append(process_file(file_path, data_uuid))
             bar()
     # dump new info

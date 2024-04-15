@@ -11,10 +11,10 @@ def main():
     start = time()
     try:
         pprint.print(Status.INFO, 'Starting Diorama scraper for AniDB')
-        # if not download_archive():
-        #     pprint.print(Status.ERR, 'Failed to download Anime_HTTP.zip')
-        #     sysexit(1)
-        # unzip('Anime_HTTP.zip', '')
+        if not download_archive():
+            pprint.print(Status.ERR, 'Failed to download Anime_HTTP.zip')
+            sysexit(1)
+        unzip('Anime_HTTP.zip', '')
         pprint.print(Status.INFO, 'Starting loop')
         do_loop()
         end = time()
