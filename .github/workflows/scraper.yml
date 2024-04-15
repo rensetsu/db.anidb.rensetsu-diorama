@@ -11,7 +11,7 @@ permissions:
 jobs:
   Scrape:
     name: "Scrape platform and convert as Media object"
-    runs-on: ubuntu-laters
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
