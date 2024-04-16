@@ -89,7 +89,7 @@ def do_loop() -> list[MediaInfo]:
             old_info = json.load(f)
     except FileNotFoundError:
         old_info = []
-        loi = len(old_info)
+    loi = len(old_info)
     new_info = []
     with alive_bar(len(os.listdir("Anime_HTTP"))) as bar:
         for file in os.listdir("Anime_HTTP"):
