@@ -5,7 +5,7 @@ from alive_progress import alive_bar
 from consts import pprint, Status
 
 def download_archive() -> bool:
-    url = 'https://shokoanime.com/files/shoko-server/other/Anime_HTTP.zip'
+    url = 'https://files.shokoanime.com/files/shoko-server/other/Anime_HTTP.zip'
     ua = FakeUserAgent().random
     headers = {'User-Agent': ua}
     try:
