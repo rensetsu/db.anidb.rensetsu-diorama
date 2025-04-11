@@ -12,11 +12,11 @@ def download_archive() -> bool:
         with req.get(url, headers=headers, stream=True) as r:
             r.raise_for_status()
             pprint.print(Status.INFO, 'Downloading Anime_HTTP.zip')
-            total_size = int(r.headers.get('content-length', 0)) // 8192
-            with open('Anime_HTTP.zip', 'wb') as f, alive_bar(total=total_size + 1) as bar:
+            total_size = int(r.headers.get('content-length', 0)) + 1
+            with open('Anime_HTTP.zip', 'wb') as f, alive_bar(total_size, unit="B", scale="IEC") as bar:
                 for chunk in r.iter_content(chunk_size=8192):
                     f.write(chunk)
-                    bar()
+                    bar(8192)
             pprint.print(Status.PASS, 'Downloaded Anime_HTTP.zip')
             return True
     except req.exceptions.RequestException as e:
